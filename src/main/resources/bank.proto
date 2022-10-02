@@ -1,0 +1,49 @@
+syntax="proto3";
+option java_package="com.miy33t.bankservice.grpc.stub";
+enum AccountType{
+  CURRENT_ACCOUNT=0;
+  SAVING_ACCOUNT=1;
+}
+enum AccountState{
+  CREATED=0;
+  ACTIVATED=1;
+  SUSPENDED=2;
+  BLOCKED=3;
+}
+
+message BankAccount{
+  string accountId=1;
+  double balance=2;
+  int64 createdAt=3;
+  AccountType type=4;
+  AccountState state=5;
+}
+
+message GetBankAccountRequest{
+  string accountId=1;
+}
+message GetBankAccountResponse{
+  BankAccount bankAccount=1;
+}
+message GetListAccountRequest{}
+
+message GetListAccountResponse{
+  repeated BankAccount bankAccount=1;
+}
+message ConvertCuurencyRequest{
+  string currencyFrom=1;
+  string currencyTo=2;
+  double amount=3;
+}
+message ConvertCuurencyResponse{
+  string currencyFrom=1;
+  string currencyTo=2;
+  double amount=3;
+  double conversionResult=4;
+}
+
+service BankService{
+  rpc getBankAccount(GetBankAccountRequest) returns(GetBankAccountResponse);
+  rpc getListAccounts(GetListAccountRequest) returns (GetListAccountResponse);
+  rpc convertCurrency(ConvertCuurencyRequest) returns (ConvertCuurencyResponse);
+}
