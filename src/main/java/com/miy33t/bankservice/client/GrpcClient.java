@@ -15,6 +15,7 @@ public class GrpcClient {
                 .build();
         //Blocking mode
         BankServiceGrpc.BankServiceBlockingStub blockingStub = BankServiceGrpc.newBlockingStub(managedChannel);
+
         Bank.ConvertCuurencyRequest cuurencyRequest = Bank.ConvertCuurencyRequest.newBuilder()
                 .setAmount(300)
                 .setCurrencyFrom("EUR")
@@ -26,6 +27,7 @@ public class GrpcClient {
                 ,cuurencyResponse.getCurrencyFrom()
                 ,cuurencyResponse.getConversionResult()
                 ,cuurencyResponse.getCurrencyTo()));
+
         //none blocking mode
         BankServiceGrpc.BankServiceStub bankServiceStub = BankServiceGrpc.newStub(managedChannel);
         bankServiceStub.convertCurrency(cuurencyRequest, new StreamObserver<Bank.ConvertCuurencyResponse>() {
